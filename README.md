@@ -42,7 +42,7 @@ To run this program, you need:
     ./kedai_management
     ```
 
-### For Linux or macOS:
+### For Linux:
 1. Open a terminal.
 2. Navigate to the folder where the C++ file is saved.
 3. Compile the program using:
