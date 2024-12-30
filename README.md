@@ -54,15 +54,6 @@ To run this program, you need:
     ./main
     ```
 
-## Code Explanation
-
-### Structure:
-- `Stock`: A class to represent a product in the inventory, including its name, quantity, price, sold quantity, and used quantity.
-- `inventory`: An array to store up to 100 different stock items.
-- `inventoryCount`: A counter for the number of stock items in the inventory.
-- `dailySales`: A counter for the total sales amount for the day.
-- `dailyExpenses`: A counter for the total expenses for the day.
-
 ### Functions:
 - **Input Stock**: This function allows the owner to add or update the inventory by specifying the item name, quantity, and price.
 - **Check Stock Warnings**: The owner can check items with low stock (less than 5 units).
