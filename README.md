@@ -35,11 +35,11 @@ To run this program, you need:
 2. Navigate to the folder where the C++ file is saved.
 3. Compile the program using:
     ```bash
-    g++ -o main.cpp
+    g++ -I./include src/main.cpp src/utility.cpp src/storage.cpp src/userMenu.cpp -o kedai_management
     ```
 4. Run the program:
     ```bash
-    ./main
+    ./kedai_management
     ```
 
 ### For Linux or macOS:
@@ -47,11 +47,11 @@ To run this program, you need:
 2. Navigate to the folder where the C++ file is saved.
 3. Compile the program using:
     ```bash
-    g++ -o main.cpp
+    g++ -I./include src/main.cpp src/utility.cpp src/storage.cpp src/userMenu.cpp -o kedai_management
     ```
 4. Run the program:
     ```bash
-    ./main
+    ./kedai_management
     ```
 
 ### Functions:
