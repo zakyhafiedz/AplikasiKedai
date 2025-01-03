@@ -12,6 +12,30 @@ int dailySales = 0;
 int dailyExpenses = 0;
 const int MIN_STOCK_WARNING = 5;
 
+// Update Inventory Function
+bool updateInventory(const std::string& itemName, int quantity, int& price, bool isSale) {
+    for (int i = 0; i < inventoryCount; ++i) {
+        if (inventory[i].name == itemName) {
+            if (inventory[i].quantity >= quantity) {
+                price = inventory[i].price * quantity;
+                inventory[i].reduceQuantity(quantity);
+                if (isSale) {
+                    inventory[i].addSold(quantity);
+                } else {
+                    inventory[i].addUsed(quantity);
+                }
+                return true;
+            } else {
+                std::cout << "Insufficient stock for " << inventory[i].name << "!\n";
+                return false;
+            }
+        }
+    }
+
+    std::cout << "Item not found!\n";
+    return false;
+}
+
 // Owner Functions
 void inputStock() {
     utility::clearScreen();
@@ -103,25 +127,10 @@ void recordSale() {
         cout << "Enter quantity sold: ";
         cin >> quantity;
 
-        bool found = false;
-        for (int i = 0; i < inventoryCount; ++i) {
-            if (inventory[i].name == itemName) {
-                if (inventory[i].quantity >= quantity) {
-                    int price = inventory[i].price * quantity;
-                    inventory[i].reduceQuantity(quantity);
-                    inventory[i].addSold(quantity);
-                    totalPrice += price;
-                    cout << "Item added to sale! Subtotal: Rp. " << price << "\n";
-                } else {
-                    cout << "Insufficient stock for " << inventory[i].name << "!\n";
-                }
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            cout << "Item not found!\n";
+        int price = 0;
+        if (updateInventory(itemName, quantity, price, true)) {
+            totalPrice += price;
+            std::cout << "Item added to sale! Subtotal: Rp. " << price << "\n";
         }
 
         cout << "\nDo you want to add another item to this sale? (y/n): ";
@@ -146,24 +155,10 @@ void recordUsage() {
     cout << "Enter quantity used: ";
     cin >> quantity;
 
-    bool found = false;
-    for (int i = 0; i < inventoryCount; ++i) {
-        if (inventory[i].name == itemName) {
-            if (inventory[i].quantity >= quantity) {
-                inventory[i].reduceQuantity(quantity);
-                inventory[i].addUsed(quantity);
-                dailyExpenses += quantity;
-                cout << "Stock updated successfully!\n";
-            } else {
-                cout << "Insufficient stock!\n";
-            }
-            found = true;
-            break;
-        }
-    }
-
-    if (!found) {
-        cout << "Item not found!\n";
+    int price = 0;
+    if (updateInventory(itemName, quantity, price, false)) {
+        dailyExpenses += quantity;
+        std::cout << "Stock updated successfully!\n";
     }
     utility::pauseForKey();
 }
